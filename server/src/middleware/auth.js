@@ -1,8 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-// The token embeds userId + name directly in its payload (signed with JWT_SECRET).
-// The server can verify any future request without hitting the database — it just
-// checks the signature. Anyone without the secret can't forge a valid token.
+// called once at login - creates and return a JWT for the given user
 export function signToken(user) {
   return jwt.sign(
     { userId: user.id, name: user.name },
@@ -11,16 +9,18 @@ export function signToken(user) {
   );
 }
 
+//Called on every protected request - checks the signature, returns the payload if valid, throws if not.
 export function verifyToken(token) {
   return jwt.verify(token, process.env.JWT_SECRET);
 }
 
-// Express middleware: requires a valid `Authorization: Bearer <jwt>` header.
+// Express middleware: requires a valid token. 
+// If existing and valid, attaches the payload to req.user. If not, responds with 401.
 export function requireAuth(req, res, next) {
   const header = req.headers.authorization || '';
   const token = header.startsWith('Bearer ') ? header.slice(7) : null;
   if (!token) {
-    return res.status(401).json({ error: 'Authentication required' });
+    return res.status(401).json({ error: 'Authentication required' }); //401 - not logged in
   }
   try {
     req.user = verifyToken(token);

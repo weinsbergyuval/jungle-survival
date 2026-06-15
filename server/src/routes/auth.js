@@ -16,12 +16,13 @@ function validateName(name) {
 // player; after that we just return a fresh token for the same record.
 router.post('/login', async (req, res) => {
   const rawName = req.body?.name;
-  const error = validateName(rawName);
-  if (error) return res.status(400).json({ error });
+  const error = validateName(rawName); 
+  if (error) return res.status(400).json({ error }); // 400 - bad request (invalid name)
 
   const name = rawName.trim();
   try {
-    const user = await upsertUser(name);
+    // with async - server keeps going, comes back when db is done. else, server would block until db is done.
+    const user = await upsertUser(name); //upsert = update or insert. if name exists, update lastLogin. else, create new record.
     res.json({ token: signToken(user), user: { id: user.id, name: user.name } });
   } catch (err) {
     console.error('login failed:', err);

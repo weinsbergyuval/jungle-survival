@@ -374,7 +374,7 @@ export default function GameCanvas({ character, weapon, onLockChange, onHud, onG
         monsters.push(m);
       }
     }
-    spawnWave(1); // first wave is on the field immediately
+    // Wave 1 spawns on first pointer lock so monsters charge the instant the player clicks in.
 
     const raycaster = new THREE.Raycaster();
     const centerNDC = new THREE.Vector2(0, 0); // NDC (0,0) = exact screen center = crosshair
@@ -458,9 +458,14 @@ export default function GameCanvas({ character, weapon, onLockChange, onHud, onG
     function onCanvasClick() {
       if (!state.locked && !state.gameOver) renderer.domElement.requestPointerLock?.();
     }
+    let waveStarted = false;
     function onLockChangeEvt() {
       state.locked = document.pointerLockElement === renderer.domElement;
       if (!state.locked) state.firing = false;
+      if (state.locked && !waveStarted) {
+        waveStarted = true;
+        spawnWave(1);
+      }
       cbRef.current.onLockChange?.(state.locked);
     }
 
@@ -507,7 +512,7 @@ export default function GameCanvas({ character, weapon, onLockChange, onHud, onG
       const dt = Math.min(clock.getDelta(), 0.05);
       const t = clock.elapsedTime;
 
-      if (!state.gameOver) {
+      if (!state.gameOver && state.locked) {
         // --- player movement ---
         // yaw is the horizontal look angle (in radians, changed by mouse X movement).
         // forward/right are 3D vectors derived from yaw so W always moves where you face,
