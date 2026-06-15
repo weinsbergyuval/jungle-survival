@@ -76,14 +76,32 @@ One command, no system-level Postgres install. Docker Desktop handles the rest.
 
 ## Run locally
 
-Requires: **Node.js 20+** and **Docker Desktop** (for the database).
+Requires: **Node.js 20+**. That's it — no database install needed to get started.
 
 ```bash
 # 1. Clone
-git clone https://github.com/YOUR_USERNAME/jungle-survival.git
+git clone https://github.com/weinsbergyuval/jungle-survival.git
 cd jungle-survival
 
-# 2. Start the database
+# 2. Backend
+cd server
+npm install
+cp .env.example .env   # no changes needed for local play
+npm run dev            # http://localhost:3001
+
+# 3. Frontend (new terminal)
+cd client
+npm install
+npm run dev            # http://localhost:5173
+
+# 4. Open http://localhost:5173 and play
+```
+
+The server automatically falls back to in-memory storage when no database is found — the game is fully playable immediately. Scores reset when the server restarts, but everything else works.
+
+**Want persistent scores locally?** Install [Docker Desktop](https://www.docker.com/products/docker-desktop), then run:
+
+```bash
 docker run -d \
   --name jungle-survival-db \
   -e POSTGRES_PASSWORD=postgres \
@@ -91,20 +109,8 @@ docker run -d \
   -p 5432:5432 \
   postgres:16
 
-# 3. Backend
-cd server
-npm install
-cp .env.example .env          # edit JWT_SECRET at minimum
-npx prisma migrate deploy     # creates tables
-npm run dev                   # http://localhost:3001
-
-# 4. Frontend (new terminal)
-cd client
-npm install
-npm run dev                   # http://localhost:5173
+cd server && npx prisma migrate deploy
 ```
-
-> **No Docker?** The server falls back to in-memory storage automatically — the game is fully playable, but scores reset when the server restarts.
 
 ---
 
