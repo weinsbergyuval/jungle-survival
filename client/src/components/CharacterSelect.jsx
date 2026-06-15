@@ -18,7 +18,7 @@ export default function CharacterSelect() {
           className="font-display font-bold text-4xl md:text-5xl text-center text-white mt-2"
           style={{ textShadow: '0 3px 0 #2e7d32' }}
         >
-          Choose your slayer
+          Choose your player
         </h1>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mt-10">
