@@ -80,7 +80,7 @@ export default function Game() {
             <h2 className="font-display font-bold text-3xl text-jungle">Enter the jungle</h2>
             <p className="text-ink/70 font-semibold mt-3">Click anywhere to take control.</p>
             <div className="mt-4 text-sm text-ink/70 font-semibold space-y-1">
-              <p><span className="text-ink">WASD</span> — move</p>
+              <p><span className="text-ink">W,A,S,D</span> — move</p>
               <p><span className="text-ink">Mouse</span> — look · <span className="text-ink">Click</span> — shoot</p>
               <p><span className="text-ink">R</span> — reload · <span className="text-ink">Esc</span> — release cursor</p>
             </div>

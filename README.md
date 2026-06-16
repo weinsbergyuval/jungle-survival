@@ -2,15 +2,15 @@
 
 A full-stack 3D browser game — survive endless waves of monsters in a third-person arena shooter. Built as a portfolio project to practice modern full-stack JavaScript, real-time WebGL game development, and cloud deployment.
 
-**Live demo:** _coming soon (Vercel + Railway)_
+**For live demo: [LinkedIn](https://www.linkedin.com/in/yuval-weinsberg-b2aa54284/) 
 
 ---
 
 ## What the game is
 
 - Enter your name → pick a character → pick a weapon → drop into a 3D jungle arena
-- Move with **WASD**, look around with the **mouse**, shoot with **left click**
-- Survive escalating waves of monsters (grubs, brutes, zippies)
+- Move with **W,A,S,D**, look around with the **mouse**, shoot with **left click**
+- Survive incoming waves of monsters 
 - Heal with med kits scattered around the arena
 - Score is saved to a global leaderboard when you die — every connected player's screen updates live via WebSocket
 
@@ -190,9 +190,9 @@ jungle-survival/
 
 | Character | Trait |
 |---|---|
-| Finn | Curly hair |
-| Luna | Long hair |
-| Pip | Explorer hat |
+| Finn | Curly and Adventurous |
+| Luna | Beautiful but Fierce |
+| Pip | The guy with the Hat |
 
 | Weapon | Color |
 |---|---|
@@ -210,4 +210,4 @@ MIT
 
 ---
 
-Built with [Claude Opus](https://anthropic.com) (Anthropic) as an AI pair-programming assistant.
+Built with Claude as an AI pair-programming assistant.
